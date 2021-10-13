@@ -19,7 +19,7 @@ public class Main {
         try {
             System.out.printf("%.1f %s", number, size[i]);
         } catch (ArrayIndexOutOfBoundsException exception) {
-            System.out.println("Число байт выходит за допустимы границы");
+            System.out.println("Число байт выходит за допустимые границы");
         }
     }
 }
