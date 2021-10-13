@@ -15,6 +15,11 @@ public class Main {
             number = number / 1024;
             i++;
         }
-        System.out.printf("%.1f %s", number, size[i]);
+
+        try {
+            System.out.printf("%.1f %s", number, size[i]);
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            System.out.println("Число байт выходит за допустимы границы");
+        }
     }
 }
