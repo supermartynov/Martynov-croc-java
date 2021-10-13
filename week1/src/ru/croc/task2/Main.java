@@ -16,7 +16,7 @@ public class Main {
                 System.out.printf("%.1f KB", number / 1024);
             } else if (number < 1024 * 1024 * 1024 ) {
                 System.out.printf("%.1f MB", number / (1024 * 1024));
-            }
+            } //changes
         } else {
             float number = Float.parseFloat(stringNumber);
             if (number < 1024L * 1024 * 1024 * 1024) {
