@@ -7,23 +7,14 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         String stringNumber = scanner.nextLine();
+        String[] size = new String[] {"B", "KB", "MB", "GB", "TB"};
+        double number = Double.parseDouble(stringNumber);
+        int i = 0;
 
-        if (stringNumber.length() < 10) {
-            double number = Double.parseDouble(stringNumber);
-            if (number < 1024) {
-                System.out.print(number + " B");
-            } else if (number < 1024 * 1024) {
-                System.out.printf("%.1f KB", number / 1024);
-            } else if (number < 1024 * 1024 * 1024 ) {
-                System.out.printf("%.1f MB", number / (1024 * 1024));
-            } //changes
-        } else {
-            float number = Float.parseFloat(stringNumber);
-            if (number < 1024L * 1024 * 1024 * 1024) {
-                System.out.printf("%.1f GB", number / (1024 * 1024 * 1024));
-            } else if (number < 1024L * 1024 * 1024 * 1024 * 1024) {
-                System.out.printf("%.1f TB", number / (1024L * 1024 * 1024 * 1024));
-            }
+        while (number > 1023) {
+            number = number / 1024;
+            i++;
         }
+        System.out.printf("%.1f %s", number, size[i]);
     }
 }
