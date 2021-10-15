@@ -1,6 +1,6 @@
-package ru.croc.task4;
+package ru.croc.task5;
 
-public class Circle implements Figure{
+public class Circle implements Figure, Movable {
     private int X;
     private int Y;
     private int R;
@@ -16,7 +16,6 @@ public class Circle implements Figure{
         Y = y;
         R = r;
     }
-
 
 
     public int getX() {
@@ -41,5 +40,11 @@ public class Circle implements Figure{
 
     public void setR(int r) {
         R = r;
+    }
+
+    @Override
+    public void move(int dx, int dy) {
+        this.X += dx;
+        this.Y += dy;
     }
 }
