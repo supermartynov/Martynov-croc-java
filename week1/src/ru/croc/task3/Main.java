@@ -73,13 +73,16 @@ public class Main {
         intArr[max] = lastElementInArray;
     }
 
+    static void prinArray() {
+        for (int j = 0; j < intArr.length; j++) {
+            System.out.print(intArr[j] + " ");
+        }
+    }
+
     public static void main(String[] args) {
 
         fillArrayFromConsole(); //метод считывающий элементы массива с консоли
         swap(); //метод, выполняющий перестановку
-
-        for (int j = 0; j < intArr.length; j++) {
-            System.out.print(intArr[j] + " ");
-        }
+        prinArray(); //печатаем
     }
 }
