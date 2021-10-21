@@ -17,11 +17,9 @@ public class Main {
         }
     }
 
-    static int[] maxMin(int[] arr) {
+    static int min(int[] arr) {
 
-        int max = arr[0];
         int min = arr[0];
-        int maxIndex = 0;
         int minIndex = 0;
 
         for (int i = 1; i < arr.length; i++) {
@@ -31,19 +29,30 @@ public class Main {
                 minIndex = i;
             }
 
+        }
+        return minIndex;
+    }
+
+    static int max(int[] arr) {
+
+        int max = arr[0];
+        int maxIndex = 0;
+
+        for (int i = 1; i < arr.length; i++) {
+
+
             if (arr[i] > max) {
                 max = arr[i];
                 maxIndex = i;
             }
         }
-        return new int[] {minIndex, maxIndex};
+        return maxIndex;
     }
 
     static void swap() {
         int length = intArr.length;
-        int[] arr = maxMin(intArr);
-        int min = arr[0];  //индекс минимального элемента
-        int max = arr[1];  //индекс максимального элемента
+        int min = min(intArr);  //индекс минимального элемента
+        int max = max(intArr);  //индекс максимального элемента
 
         if (min - max == 1 && max == 0) {    //меняем местами минимальный и максимальный элемент, если максимальный стоит
             int minValue = intArr[min];      //в начале массива и максимальный на одну позицию левее минимального.
@@ -68,9 +77,11 @@ public class Main {
         intArr[0] = intArr[min];              //который стоял на первой позиции массива
         intArr[min] = firstElementInArray;
 
+        int newMax = max(intArr);
+
         int lastElementInArray = intArr[length - 1]; //меняем максимальный элемент местами с тем,
-        intArr[length - 1] = intArr[max];            // который стоял на последней позиции
-        intArr[max] = lastElementInArray;
+        intArr[length - 1] = intArr[newMax];            // который стоял на последней позиции
+        intArr[newMax] = lastElementInArray;
     }
 
     static void prinArray() {
@@ -80,7 +91,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
+        char a = 127;
+        System.out.println(a);
         fillArrayFromConsole(); //метод считывающий элементы массива с консоли
         swap(); //метод, выполняющий перестановку
         prinArray(); //печатаем
