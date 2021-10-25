@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class Main {
     public static String removeJavaComments(String string) {
-        String firstPart = string.replaceAll("/\\*.*\\*/", "");
-        String secondPart = firstPart.replaceAll("//.*(?=\\n?)", "");
+        String firstPart = string.replaceAll("/\\*([\\S\\s]+?)\\*/", "");
+        String secondPart = firstPart.replaceAll("//.*(?=\\n)?", "");
         return secondPart;
     }
 
@@ -22,7 +22,6 @@ public class Main {
                 "  }\n" +
                 "} // the end\n" +
                 "// to be continued...\n";
-        //Scanner scanner = new Scanner(System.in);
         System.out.println(removeJavaComments(str));
     }
 }
