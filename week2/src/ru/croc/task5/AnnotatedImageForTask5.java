@@ -56,11 +56,4 @@ class AnnotatedImageForTask5 extends  AnnotatedImage {
         return null;
     }
 
-    public String getImagePath() {
-        return this.imagePath;
-    }
-
-    public Annotation[] getAnnotations() {
-        return this.annotations;
-    }
 }
