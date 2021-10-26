@@ -1,10 +1,10 @@
 package ru.croc.task4;
 
 public class Circle implements Figure{
-    private int X;
-    private int Y;
-    private int R;
-    private final String abbreviation = "C";
+    protected int X;
+    protected int Y;
+    protected int R;
+    protected final String abbreviation = "C";
 
     @Override
     public String toString() {

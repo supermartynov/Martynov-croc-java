@@ -1,30 +1,27 @@
 package ru.croc.task5;
 
-class AnnotatedImage {
+import ru.croc.task4.AnnotatedImage;
+import ru.croc.task4.Annotation;
 
-    private final String imagePath;
+class AnnotatedImageForTask5 extends  AnnotatedImage {
 
-    private final Annotation[] annotations;
-
-    public AnnotatedImage(String imagePath, Annotation... annotations) {
-        this.imagePath = imagePath;
-        this.annotations = annotations;
+    public AnnotatedImageForTask5(String imagePath, Annotation... annotations) {
+        super(imagePath, annotations);
     }
 
     public boolean compare(int x1, int y1, int x2, int y2) {
         return x1 == x2 && y1 == y2;
     }
 
-
     public Annotation findByPoint(int x, int y) {  //первая версия метода поиска по точке
         for(Annotation annotation : annotations) {
-            if (annotation.getFigure() instanceof Rectangle) {
-                if (compare(((Rectangle) annotation.getFigure()).getX1(), ((Rectangle) annotation.getFigure()).getY1(), x, y)
-                    || compare(((Rectangle) annotation.getFigure()).getX2(), ((Rectangle) annotation.getFigure()).getY2(), x, y)) {
+            if (annotation.getFigure() instanceof RectangleForTask5) {
+                if (compare(((RectangleForTask5) annotation.getFigure()).getX1(), ((RectangleForTask5) annotation.getFigure()).getY1(), x, y)
+                    || compare(((RectangleForTask5) annotation.getFigure()).getX2(), ((RectangleForTask5) annotation.getFigure()).getY2(), x, y)) {
                     return annotation;
                 }
-            } else if (annotation.getFigure() instanceof Circle) {
-                if (compare(((Circle) annotation.getFigure()).getX(), ((Circle) annotation.getFigure()).getY(), x, y)) {
+            } else if (annotation.getFigure() instanceof CircleForTask5) {
+                if (compare(((CircleForTask5) annotation.getFigure()).getX(), ((CircleForTask5) annotation.getFigure()).getY(), x, y)) {
                     return annotation;
                 }
             }
@@ -59,9 +56,7 @@ class AnnotatedImage {
         return null;
     }
 
-
-
-        public String getImagePath() {
+    public String getImagePath() {
         return this.imagePath;
     }
 

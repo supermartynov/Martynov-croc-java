@@ -1,11 +1,11 @@
 package ru.croc.task4;
 
 public class Rectangle implements Figure {
-    private int X1;
-    private int Y1;
-    private int X2;
-    private int Y2;
-    private final String abbreviation = "R";
+    protected int X1;
+    protected int Y1;
+    protected int X2;
+    protected int Y2;
+    protected final String abbreviation = "R";
 
     public Rectangle(int x1, int y1, int x2, int y2) {
         X1 = x1;

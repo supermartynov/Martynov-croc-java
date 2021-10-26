@@ -1,10 +1,10 @@
 package ru.croc.task4;
 
-class AnnotatedImage {
+public class AnnotatedImage {
 
-    private final String imagePath;
+    protected final String imagePath;
 
-    private final Annotation[] annotations;
+    protected final Annotation[] annotations;
 
     public AnnotatedImage(String imagePath, Annotation... annotations) {
         this.imagePath = imagePath;
