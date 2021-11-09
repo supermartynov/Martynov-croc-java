@@ -14,10 +14,10 @@ public class User extends Thread{
 
     @Override
     public void run() {
-        while (LocalDateTime.now().isBefore(lot.getEndOfAuction())) {
+        while (!lot.isInterrupted()) {
             try {
                 synchronized (lot) {
-                    if (!lot.isInterrupted()) {
+                    if (LocalDateTime.now().isBefore(lot.getEndOfAuction())) {
                         lot.setCurrentPriceAndName(lot.getCurrentPrice() + 5, name);
                     }
                 }

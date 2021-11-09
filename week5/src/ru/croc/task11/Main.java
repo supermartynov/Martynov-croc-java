@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Lot lot = new Lot(LocalDateTime.parse("2021-11-10T00:30:44"));
+        Lot lot = new Lot(LocalDateTime.now().plusSeconds(1));
         User user1 = new User("Danya", lot);
         User user2 = new User("Lexa", lot);
         User user3 = new User("John", lot);

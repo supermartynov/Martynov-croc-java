@@ -26,7 +26,7 @@ public class Lot extends Thread{
     public void setCurrentPriceAndName(double price, String name) throws InterruptedException {
         if (price > currentPrice || LocalDateTime.now().isBefore(endOfAuctionTime)) {
             currentPrice = price;
-            Thread.sleep(100);
+            Thread.sleep(10);
             winnerName = name;
             System.out.println(name + " поставил ставку: " + price);
         }
