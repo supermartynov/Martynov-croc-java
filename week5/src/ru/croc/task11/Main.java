@@ -4,12 +4,12 @@ import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        Lot lot = new Lot(LocalDateTime.parse("2021-11-10T00:58:40"));
-        User user1 = new User("Danya");
-        User user2 = new User("Lexa");
-        User user3 = new User("John");
-        User user4 = new User("Petya");
-        User user5 = new User("Katya");
+        Lot lot = new Lot(LocalDateTime.parse("2021-11-10T00:30:44"));
+        User user1 = new User("Danya", lot);
+        User user2 = new User("Lexa", lot);
+        User user3 = new User("John", lot);
+        User user4 = new User("Petya",lot);
+        User user5 = new User("Katya",lot);
 
         lot.start();
         Thread.sleep(100);
