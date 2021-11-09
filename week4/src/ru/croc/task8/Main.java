@@ -8,7 +8,10 @@ public class Main {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(args[0]));
         while (bufferedReader.ready()) {
             String line = bufferedReader.readLine();
-            line = line.replaceAll("\\p{Punct}", "");
+            line = line.replaceAll("\\p{Punct}",  " ");
+            if (!(line.trim().length() > 0)) {
+                continue;
+            }
             String after = line.trim().replaceAll(" +", " ");
             counter = counter + after.split(" ").length;
         }

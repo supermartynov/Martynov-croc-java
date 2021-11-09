@@ -12,6 +12,9 @@ public class Main {
         callsHistory.add("4,6");
         callsHistory.add("7,12");
         callsHistory.add("10,32");
+        callsHistory.add("11,22");
+        callsHistory.add("16,30");
+        callsHistory.add("16,31");
         callsHistory.add("15,30");
 
         List<String> startTimeArray = new ArrayList<>();
