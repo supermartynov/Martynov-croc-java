@@ -12,7 +12,7 @@ public class Main {
         User user5 = new User("Katya",lot);
 
         lot.start();
-        Thread.sleep(100);
+        Thread.sleep(1);
         user1.start();
         user2.start();
         user3.start();

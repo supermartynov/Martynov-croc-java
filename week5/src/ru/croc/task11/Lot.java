@@ -19,14 +19,13 @@ public class Lot extends Thread{
         while (LocalDateTime.now().isBefore(endOfAuctionTime)) {
 
         }
-        System.out.println(winnerName + " : " + currentPrice);
         this.interrupt();
+        System.out.println("Победитель - " +winnerName + " : " + currentPrice);
     }
 
     public void setCurrentPriceAndName(double price, String name) throws InterruptedException {
         if (price > currentPrice || LocalDateTime.now().isBefore(endOfAuctionTime)) {
             currentPrice = price;
-            Thread.sleep(10);
             winnerName = name;
             System.out.println(name + " поставил ставку: " + price);
         }
@@ -34,10 +33,6 @@ public class Lot extends Thread{
 
     public LocalDateTime getEndOfAuction() {
         return endOfAuctionTime;
-    }
-
-    public void setEndOfAuction(LocalDateTime endOfAuction) {
-        endOfAuctionTime = endOfAuction;
     }
 
     public Double getCurrentPrice() {
