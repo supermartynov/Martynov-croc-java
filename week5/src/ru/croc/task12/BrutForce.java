@@ -21,9 +21,10 @@ public class BrutForce {
 
     public static void divideArrays(int threadsAmount) {
         int chunkSize = 26 / threadsAmount;
+
         int counter = 0;
         List<Character> subArray = new ArrayList<>();
-        for (int i = 0; i < 26; i++) {
+        for (int i = 0; i < (26 - 26 % threadsAmount); i++) {
             if (counter != chunkSize) {
                 subArray.add(CHOICES[i]);
                 counter++;
@@ -33,6 +34,9 @@ public class BrutForce {
                 subArray.add(CHOICES[i]);
                 counter = 1;
             }
+        }
+        for (int i = 0; i < 26 % threadsAmount; i++) {
+            arrayOfArrays.get(i % arrayOfArrays.size()).add(CHOICES[25 - i]);
         }
         arrayOfArrays.add(subArray);
     }
@@ -75,13 +79,16 @@ public class BrutForce {
     }
 
     public static void main(String[] args) {
+        /*System.out.println(Hex.hashPassword("mmmmmmm"));
         if (Integer.parseInt(args[0]) > 26) {
             threadsAmount = 26;
             System.out.println("Максимальное количество потоков - 26. Сделал 26");
         } else {
             threadsAmount = Integer.parseInt(args[0]);
-        }
+        }*/
+        threadsAmount = 4;
         divideArrays(threadsAmount);
+        System.out.println(arrayOfArrays);
         System.out.println(LocalDateTime.now());
         brutForce("");
     }
