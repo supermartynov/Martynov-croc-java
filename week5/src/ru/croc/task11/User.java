@@ -18,7 +18,7 @@ public class User extends Thread{
     public void run() {
         while (!lot.isInterrupted()) {
             try {
-                synchronized (lot) {
+                 {
                     if (LocalDateTime.now().isBefore(lot.getEndOfAuction()) && currentBid < lot.getCurrentPrice()) {
                         lot.setCurrentPriceAndName(lot.getCurrentPrice() + 5, name);
                         currentBid = lot.getCurrentPrice() +  5;

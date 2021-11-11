@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 public class Lot extends Thread{
 
-    private Double currentPrice = 0.0;
+    private volatile Double currentPrice = 0.0;
 
-    private String winnerName = "Никто не выиграл";
+    private volatile String winnerName = "Никто не выиграл";
 
     private LocalDateTime endOfAuctionTime;
 
@@ -24,12 +24,10 @@ public class Lot extends Thread{
     }
 
     public synchronized void setCurrentPriceAndName(double price, String name) throws InterruptedException {
-        synchronized (currentPrice) {
-            if (price > currentPrice || LocalDateTime.now().isBefore(endOfAuctionTime)) {
+        {
+            if (price > currentPrice || LocalDateTime.now().isBefore(endOfAuctionTime) && !this.isAlive()) {
                 currentPrice = price;
-                synchronized (winnerName) {
-                    winnerName = name;
-                }
+                winnerName = name;
                 System.out.println(name + " поставил ставку: " + price);
             }
         }
