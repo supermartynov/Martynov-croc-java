@@ -102,7 +102,7 @@ public class BrutForce {
     }
 
     public static void main(String[] args) {
-        threadsAmount = Integer.parseInt("4");
+        threadsAmount = Integer.parseInt(args[0]);
         divideArrays(threadsAmount);
         System.out.println(LocalDateTime.now());
         brutForce("", CHOICES);
