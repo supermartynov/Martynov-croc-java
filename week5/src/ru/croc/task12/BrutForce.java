@@ -2,8 +2,9 @@ package ru.croc.task12;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
 
-public class someclass {
+public class BrutForce {
 
     public static String trueHex = "40682260CC011947FC2D0B1A927138C5";
 
@@ -11,7 +12,7 @@ public class someclass {
 
     public static String password = "";
 
-    //пароль получится passwrd
+    public static Integer counter = 0;
 
     private static final char[] CHOICES = new char[]{'a', 'b', 'c', 'd', 'e', 'f',
             'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
@@ -40,31 +41,29 @@ public class someclass {
     }
 
 
-    public static void brutForce (String currentString, String letterToAdd) {
+    public static void brutForce (String currentString) {
         if (password.length() != 0) {
             return;
         }
 
-        String currentIterationCurrentString = currentString + letterToAdd;
-
-        if (currentIterationCurrentString.length() == 7) {
-            if (hashPassword(currentIterationCurrentString).equals(trueHex)) {
-                hex = hashPassword(currentIterationCurrentString);
-                password = currentIterationCurrentString;
+        if (currentString.length() == 7) {
+            if (hashPassword(currentString).equals(trueHex)) {
+                hex = hashPassword(currentString);
+                password = currentString;
             }
             return;
         }
 
+
         for (char letter : CHOICES) {
-            brutForce(currentIterationCurrentString, Character.toString(letter));
+            brutForce(currentString + letter);
         }
     }
 
-
-
     public static void main(String[] args) {
-        brutForce("", "");
-        System.out.println(password);
+        long time = System.currentTimeMillis();
+        brutForce("");
+        System.out.println((System.currentTimeMillis() - time)/1000);
     }
 
 }
