@@ -54,7 +54,6 @@ public class BrutForce {
             return;
         }
 
-
         for (char letter : CHOICES) {
             brutForce(currentString + letter);
         }
