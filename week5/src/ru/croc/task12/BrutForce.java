@@ -75,13 +75,12 @@ public class BrutForce {
     }
 
     public static void main(String[] args) {
-        /*if (Integer.parseInt(args[0]) > 26) {
+        if (Integer.parseInt(args[0]) > 26) {
             threadsAmount = 26;
             System.out.println("Максимальное количество потоков - 26. Сделал 26");
         } else {
             threadsAmount = Integer.parseInt(args[0]);
-        }*/
-        threadsAmount = 2;
+        }
         divideArrays(threadsAmount);
         System.out.println(LocalDateTime.now());
         brutForce("");
