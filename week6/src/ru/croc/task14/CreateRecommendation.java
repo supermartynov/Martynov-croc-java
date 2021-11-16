@@ -4,14 +4,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CreateRecommendation {
+
     private static Set<Integer> uniqueViewsFromString(String userViewHistory) {
         Set<Integer> uniqueViews = new HashSet<>();
         String[] history = userViewHistory.split(",");
-
         for(String str : history) {
-            uniqueViews.add(Integer.parseInt(str.replaceAll(" ", "")));
+            if (str.length() != 0) {
+                uniqueViews.add(Integer.parseInt(str.replaceAll(" ", "")));
+            }
         }
-
         return uniqueViews;
     }
 
@@ -25,39 +26,72 @@ public class CreateRecommendation {
         return counter;
     }
 
-    /*private static int maxDublicateAmount(String[] array) {
+    private static String getJoinnedStringFromList(ArrayList<String> arrayList) {
+        StringJoiner joiner = new StringJoiner(" ");
+        for (String item : arrayList) {
+            joiner.add(item);
+        }
+        return joiner.toString().replaceAll("  ", " ");
+    }
 
-    }*/
+    private static int[] getSortedArrayFromString(String str) {
+        String[] stringArr = str.split(" ");
+        int[] intArr = new int[stringArr.length];
+        for (int i = 0; i < stringArr.length; i++) {
+            intArr[i] = Integer.parseInt(stringArr[i]);
+        }
+        Arrays.sort(intArr);
+        return intArr;
+    }
+
+    private static int getMaxFreqFilmId(int[] arr) {
+        int maxFrequence = 1;
+        int maxFrequenceFilmId = 0;
+        int currentFrequence = 0;
+        int currentId = arr[0];
+        for (int i = 0; i < arr.length; i++) {
+            if (currentId == arr[i]) {
+                currentFrequence++;
+            } else {
+                currentId = arr[i];
+                currentFrequence = 1;
+            }
+            if (currentFrequence > maxFrequence) {
+                maxFrequence = currentFrequence;
+                maxFrequenceFilmId = arr[i - 1];
+            }
+        }
+        return maxFrequenceFilmId;
+    }
 
 
-    public static void createFilmRecommendation(String userViewHistory, ArrayList<String> viewsHistory, HashMap<Integer, String> filmsList) {
+    public static int createFilmRecommendation(String userViewHistory, ArrayList<String> viewsHistory) {
         Set<Integer> currentUserUniqueViews = uniqueViewsFromString(userViewHistory); //множество просмотренных фильмов, без повторений
         Iterator<String> viewsHistoryIterator = viewsHistory.iterator();
 
         while (viewsHistoryIterator.hasNext()){ //убираем истории пользователей, не посмотревших хотя бы половину фильмов.
             String someUserViewsHistory = viewsHistoryIterator.next();
             Set<Integer> someUserUniqueViews = uniqueViewsFromString(someUserViewsHistory);
-            if ((double) amountOfSameFilms(currentUserUniqueViews, someUserUniqueViews) < Math.ceil((double) currentUserUniqueViews.size()/2)) {
+            if (amountOfSameFilms(currentUserUniqueViews, someUserUniqueViews) < currentUserUniqueViews.size()/2) {
                 viewsHistoryIterator.remove();
             }
         }
 
-        for (int i = 0; i < viewsHistory.size(); i++)  { //убираем все фильмы, которые посмотрел пользователь)
-            for (Integer filmsId : currentUserUniqueViews) {
-                String clearedSomeUserViewsHistory = viewsHistory.get(i)
-                                                .replaceAll(filmsId.toString() + ",", "")
-                                                .trim();
-                if (clearedSomeUserViewsHistory.equals(filmsId.toString())) {
-                    viewsHistory.remove(i);
-                } else {
-                    viewsHistory.set(i, clearedSomeUserViewsHistory);
+        for (int i = 0; i < viewsHistory.size(); i++) { //убираем все фильмы, которые посмотрел пользователь)
+            String[] someUserViewsHistoryArray = viewsHistory.get(i).split(",");
+            String clearedSomeUserViewsHistory = "";
+            for (String view : someUserViewsHistoryArray) {
+                if (!currentUserUniqueViews.contains(Integer.parseInt(view))) {
+                    clearedSomeUserViewsHistory += view + " "; //склеиваем только подходящие под условие id фильмов
                 }
             }
+            viewsHistory.set(i, clearedSomeUserViewsHistory.trim());
         }
 
-        //объединяем просмотры всех пользователей в массив строк.
-        viewsHistory.forEach(System.out::println);
-        /*String[] allViews = viewsHistory.stream().collect(Collectors.joining(" ")).split(" ");
-        Arrays.stream(allViews).forEach(s -> System.out.print(s + " "));*/
+        //получаем отсортированный массив просмотров от всех пользователей
+        int[] sortedViewsArray = getSortedArrayFromString(getJoinnedStringFromList(viewsHistory));
+        System.out.println(Arrays.toString(sortedViewsArray));
+        //возвращаем самый встречающийся фильм
+        return getMaxFreqFilmId(sortedViewsArray);
     }
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static final String viewsHistorySource = "./week6/src/ru/croc/task14/historyView.txt";
@@ -12,7 +13,12 @@ public class Main {
     public static void main(String[] args) throws IOException {
         ArrayList<String> viewsList = CreateCollectionFromFile.viewsHistory(viewsHistorySource);
         HashMap<Integer, String> filmsHashMap = CreateCollectionFromFile.filmsMap(filmsList);
-        CreateRecommendation.createFilmRecommendation("2, 3", viewsList, filmsHashMap);
-        viewsList.forEach(System.out::println);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите историю просмотров в таком же формате, как и в файлах (без пробелов через запятую)");
+        String userViewHistory = scanner.nextLine();
+        int MostFrequentFilmId = CreateRecommendation.createFilmRecommendation(userViewHistory, viewsList);
+
+        System.out.println(filmsHashMap.get(MostFrequentFilmId));
     }
 }
