@@ -2,9 +2,9 @@ package ru.croc.task11;
 
 import java.time.LocalDateTime;
 
-public class Lot extends Thread{
+public class Lot{
 
-    private volatile Double currentPrice = 0.0;
+    private volatile Double currentBid = 0.0;
 
     private volatile String winnerName = "Никто не выиграл";
 
@@ -14,21 +14,14 @@ public class Lot extends Thread{
         this.endOfAuctionTime = endOfAuctionTime;
     }
 
-    @Override
-    public void run() {
-        while (LocalDateTime.now().isBefore(endOfAuctionTime)) {
-
-        }
-        this.interrupt();
-        System.out.println("Победитель - " +winnerName + " : " + currentPrice);
-    }
-
-    public synchronized void setCurrentPriceAndName(double price, String name) throws InterruptedException {
-        {
-            if (price > currentPrice || !this.isAlive()) {
-                currentPrice = price;
-                winnerName = name;
-                System.out.println(name + " поставил ставку: " + price);
+    public void setCurrentPriceAndName(double price, String name) throws InterruptedException {
+        if (price > currentBid || LocalDateTime.now().isBefore(endOfAuctionTime)) {
+            synchronized (currentBid) {
+                if (price > currentBid || LocalDateTime.now().isBefore(endOfAuctionTime)) {
+                    currentBid = price;
+                    winnerName = name;
+                    System.out.println(name + " поставил ставку: " + price);
+                }
             }
         }
     }
@@ -37,7 +30,14 @@ public class Lot extends Thread{
         return endOfAuctionTime;
     }
 
-    public synchronized Double getCurrentPrice() {
-        return currentPrice;
+    public synchronized Double getCurrentBid() {
+        return currentBid;
+    }
+
+    public synchronized String getWinnerName() {
+        while (LocalDateTime.now().isBefore(endOfAuctionTime)) {
+
+        }
+        return winnerName;
     }
 }

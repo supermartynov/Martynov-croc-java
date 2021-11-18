@@ -16,12 +16,12 @@ public class User extends Thread{
 
     @Override
     public void run() {
-        while (!lot.isInterrupted()) {
+        while (LocalDateTime.now().isBefore(lot.getEndOfAuction())) {
             try {
-                 {
-                    if (LocalDateTime.now().isBefore(lot.getEndOfAuction()) && currentBid < lot.getCurrentPrice()) {
-                        lot.setCurrentPriceAndName(lot.getCurrentPrice() + 5, name);
-                        currentBid = lot.getCurrentPrice() +  5;
+                {
+                    if (currentBid < lot.getCurrentBid()) {
+                        lot.setCurrentPriceAndName(lot.getCurrentBid() + 5, name);
+                        currentBid = lot.getCurrentBid() +  5;
                     }
                 }
             } catch (InterruptedException e) {

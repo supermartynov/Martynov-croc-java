@@ -11,13 +11,12 @@ public class Main {
         User user4 = new User("Petya",lot);
         User user5 = new User("Katya",lot);
 
-        lot.start();
-        Thread.sleep(1);
         user1.start();
         user2.start();
         user3.start();
         user4.start();
         user5.start();
+        System.out.println(lot.getWinnerName());
 
     }
 }

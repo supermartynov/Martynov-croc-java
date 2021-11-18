@@ -85,7 +85,6 @@ public class BrutForce {
         } else {
             threadsAmount = Integer.parseInt(args[0]);
         }
-        //threadsAmount = 4
         divideArrays(threadsAmount);
         System.out.println(LocalDateTime.now());
         brutForce("");
