@@ -6,7 +6,7 @@ public class Lot{
 
     private volatile Double currentBid = 0.0;
 
-    private volatile String winnerName = "Никто не выиграл";
+    private volatile String winnerName;
 
     private LocalDateTime endOfAuctionTime;
 
@@ -35,8 +35,8 @@ public class Lot{
     }
 
     public synchronized String getWinnerName() {
-        while (LocalDateTime.now().isBefore(endOfAuctionTime)) {
-
+        if (LocalDateTime.now().isBefore(endOfAuctionTime)) {
+            return null;
         }
         return winnerName;
     }
