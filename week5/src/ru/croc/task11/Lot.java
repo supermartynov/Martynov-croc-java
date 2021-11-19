@@ -34,7 +34,7 @@ public class Lot{
         return currentBid;
     }
 
-    public synchronized String getWinnerName() {
+    public String getWinnerName() {
         if (LocalDateTime.now().isBefore(endOfAuctionTime)) {
             return null;
         }
