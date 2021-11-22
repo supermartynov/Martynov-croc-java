@@ -11,7 +11,8 @@ public class someClass {
         int[] arr = new int[] {5, 2, 7, 1, 5};
         //BubbleSort.sort(arr);
         //InsertionSort.sort(arr);
-        SliyanieSort.mergeSort(arr);
+        //SliyanieSort.mergeSort(arr);
+        //QuickSort.quickSort(arr, 0, arr.length - 1);
 
         System.out.println(Arrays.toString(arr));
 

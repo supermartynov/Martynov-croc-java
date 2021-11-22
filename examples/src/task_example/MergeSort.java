@@ -1,6 +1,6 @@
 package task_example;
 
-public class InsertionSort {
+public class MergeSort {
     public static int[] sort (int[] array) {
         int counter = 0;
         for (int i = 1; i < array.length; i++) {
