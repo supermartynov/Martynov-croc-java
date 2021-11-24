@@ -12,9 +12,20 @@ public class someClass {
         //BubbleSort.sort(arr);
         //InsertionSort.sort(arr);
         //SliyanieSort.mergeSort(arr);
-        //QuickSort.quickSort(arr, 0, arr.length - 1);
+        QuickSort.quickSort(arr, 0, arr.length - 1);
+        int a = BinarySearch.binarySearch(arr, 2);
+        System.out.println(a);
 
+        Thread thread = new Thread(() -> System.out.println("аа"));
+        thread.start();
         System.out.println(Arrays.toString(arr));
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("lala");
+            }
+        };
 
     }
 }
