@@ -38,6 +38,9 @@ public class CreateRecommendation {
         String[] stringArr = str.split(" ");
         int[] intArr = new int[stringArr.length];
         for (int i = 0; i < stringArr.length; i++) {
+            if (stringArr[i].trim().equals("")) {
+                continue;
+            }
             intArr[i] = Integer.parseInt(stringArr[i]);
         }
         Arrays.sort(intArr);
@@ -72,7 +75,7 @@ public class CreateRecommendation {
         while (viewsHistoryIterator.hasNext()){ //убираем истории пользователей, не посмотревших хотя бы половину фильмов.
             String someUserViewsHistory = viewsHistoryIterator.next();
             Set<Integer> someUserUniqueViews = uniqueViewsFromString(someUserViewsHistory);
-            if (amountOfSameFilms(currentUserUniqueViews, someUserUniqueViews) < currentUserUniqueViews.size()/2) {
+            if ((double) amountOfSameFilms(currentUserUniqueViews, someUserUniqueViews) < (double) (currentUserUniqueViews.size())/2) {
                 viewsHistoryIterator.remove();
             }
         }
@@ -90,7 +93,6 @@ public class CreateRecommendation {
 
         //получаем отсортированный массив просмотров от всех пользователей
         int[] sortedViewsArray = getSortedArrayFromString(getJoinnedStringFromList(viewsHistory));
-        System.out.println(Arrays.toString(sortedViewsArray));
         //возвращаем самый встречающийся фильм
         return getMaxFreqFilmId(sortedViewsArray);
     }

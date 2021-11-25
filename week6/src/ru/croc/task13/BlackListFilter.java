@@ -16,28 +16,6 @@ public interface BlackListFilter {
      * @param blackList list of words that should not
      *                  be present in a comment
      */
-     default void filterComments(List<String> comments, Set<String> blackList) {
-         Iterator<String> iteratorForComments = comments.iterator();
-         while (iteratorForComments.hasNext()) {
-             String currentIter = iteratorForComments.next().toLowerCase();
-             for (String badWord : blackList) {
-                 if (currentIter.contains(badWord)) {
-                     iteratorForComments.remove();
-                     break;
-                 }
-             }
-         }
-     }
+    void filterComments(List<String> comments, Set<String> blackList);
 }
 
-
-/*
-for (String comment : comments) {
-        for (String badWord : blackList) {
-        if (comment.toLowerCase().contains(badWord)) {
-        comments.remove(comment);
-        break;
-        }
-        }
-        }
-*/
