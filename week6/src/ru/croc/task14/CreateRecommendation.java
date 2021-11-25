@@ -48,22 +48,34 @@ public class CreateRecommendation {
     }
 
     private static int getMaxFreqFilmId(int[] arr) {
-        int maxFrequence = 1;
-        int maxFrequenceFilmId = 0;
-        int currentFrequence = 0;
-        int currentId = arr[0];
-        for (int i = 0; i < arr.length; i++) {
-            if (currentId == arr[i]) {
-                currentFrequence++;
+        if (arr.length == 0 || arr[0] == 0) {
+            return 0;
+        }
+
+        if (arr.length == 1) {
+            return arr[0];
+        }
+
+        Map<Integer, Integer> dictionary = new HashMap<>();
+
+        for (int i = 0; i < arr.length; i++){
+            int val = arr[i];
+            if (dictionary.containsKey(val)) {
+                dictionary.put(val, dictionary.get(val) + 1);
             } else {
-                currentId = arr[i];
-                currentFrequence = 1;
-            }
-            if (currentFrequence > maxFrequence) {
-                maxFrequence = currentFrequence;
-                maxFrequenceFilmId = arr[i - 1];
+                dictionary.put(val, 1);
             }
         }
+
+        int maxFrequence = 0;
+        int maxFrequenceFilmId = 0;
+        for (Map.Entry<Integer, Integer> entry : dictionary.entrySet()) {
+            if (entry.getValue() > maxFrequence) {
+                maxFrequence = entry.getValue();
+                maxFrequenceFilmId = entry.getKey();
+            }
+        }
+
         return maxFrequenceFilmId;
     }
 

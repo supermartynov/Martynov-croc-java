@@ -19,6 +19,6 @@ public class Main {
         String userViewHistory = scanner.nextLine();
         int MostFrequentFilmId = CreateRecommendation.createFilmRecommendation(userViewHistory, viewsList);
 
-        System.out.println(filmsHashMap.get(MostFrequentFilmId));
+        System.out.println("Id:" + MostFrequentFilmId + " " + filmsHashMap.get(MostFrequentFilmId));
     }
 }
