@@ -13,7 +13,7 @@ public interface BlackListFilter {
         Iterator<T> iteratorForComments = comments.iterator();
         while (iteratorForComments.hasNext()) {
             T currentIter = iteratorForComments.next();
-            if (checkBadWords.test(currentIter)) { //если true - запроетных слов не обнаружено
+            if (checkBadWords.test(currentIter)) { //если true - запретных слов не обнаружено
                 resultList.add(currentIter);
             }
         }
