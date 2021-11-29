@@ -1,13 +1,14 @@
 package ru.croc.task16;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     static List<Group> groups = new ArrayList<>();
     static HashSet<Respondent> respondents = new HashSet<>();
 
     public static void main(String[] args) {
-        //args = new String[] {"18", "25", "35", "55", "60", "80", "100"};
+        args = new String[] {"18", "25", "35", "55", "60", "80", "100"};
         int[] ageBounds = new int[args.length];
         for (int i = 0; i < args.length; i++) {
             ageBounds[i] = Integer.parseInt(args[i].trim());
@@ -61,9 +62,16 @@ public class Main {
 
     private static void printGroup(List<Group> groups) {
         groups.stream()
-                .filter(s -> s.getRespondentList().size() > 0)
+                .filter(s -> s.getRespondentList().size() > 0 && s.getFrom() < 101).collect(Collectors.toList())
                 .forEach(s -> System.out.println(s.getFrom() + "-" + s.getTo() + ": " + s.printRespondsList()));
+
+        Group lastGroup = groups.get(groups.size() - 1);
+
+        if (lastGroup.getRespondentList().size() != 0) {
+            System.out.println(lastGroup.getFrom() + "+ : " + lastGroup.printRespondsList());
+        }
     }
+
 
 }
 
