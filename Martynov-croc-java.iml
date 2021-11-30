@@ -11,8 +11,10 @@
       <sourceFolder url="file://$MODULE_DIR$/week5/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/week6/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/week7/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/week8/src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="h2-1.4.200" level="project" />
   </component>
 </module>
