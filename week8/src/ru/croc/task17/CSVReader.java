@@ -31,9 +31,8 @@ public class CSVReader {
     public  void fillTablesFromCSV () throws IOException, SQLException {
         FileReader fileReader = new FileReader(csv);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String[] strings = new String[5];
         while (bufferedReader.ready()) {
-            strings = bufferedReader.readLine().split(",");
+            String[] strings = bufferedReader.readLine().split(",");
             String login = strings[1];
             String article = strings[2];
             String name = strings[3];

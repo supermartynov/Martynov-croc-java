@@ -31,17 +31,13 @@ public class Main {
 
 
     public static void main(String[] args) throws SQLException, IOException {
-        Driver driver = new org.h2.Driver();
-        try {
-            connection = DriverManager.getConnection(connectionURL);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        connection = DBConnection.createConnection(connectionURL);
         executeStatement(createUserTableQuery);
         executeStatement(createProductTableQuery);
         executeStatement(createOrderTableQuery);
         CSVReader csvReader = new CSVReader(args[0], connection);
         csvReader.fillTablesFromCSV();
+        //"./week8/src/ru/croc/task17/info.csv"
     }
 
     public static void executeStatement(String query) throws SQLException {
