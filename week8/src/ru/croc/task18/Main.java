@@ -1,21 +1,43 @@
 package ru.croc.task18;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Locale;
+
+import ru.croc.task17.DBConnection;
+import ru.croc.task18.DAO_implementations.OrderDAOImplementation;
+import ru.croc.task18.DAO_implementations.ProductDAOImplementation;
+import ru.croc.task18.entities.Product;
 
 public class Main {
-    public static final String connectionURL = "jdbc:h2:tcp://localhost/~/test";
 
-    public static Connection connection;
-
-    public static void main(String[] args) {
-        Driver driver = new org.h2.Driver();
-        try {
-            connection = DriverManager.getConnection(connectionURL);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+    public static void main(String[] args) throws SQLException, IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String line = "";
+        ConsoleOperations consoleOperations = new ConsoleOperations();
+        System.out.println("Артикулы исходных данных из task17 заполнены на русском!!!");
+        while (!(line = bufferedReader.readLine()).equals("КОНЕЦ")) {
+            String[] strings = line.trim().split(" ");
+            switch (strings[0].toUpperCase(Locale.ROOT)) {
+                case ("ТОВАР"):
+                    consoleOperations.createProduct(strings);
+                    break;
+                case ("ИЗМЕНИТЬ"):
+                    consoleOperations.changeProduct(strings);
+                    break;
+                case ("УДАЛИТЬ"):
+                    consoleOperations.deleteProduct(strings);
+                    break;
+                case ("ЗАКАЗ"):
+                    consoleOperations.order(strings);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
