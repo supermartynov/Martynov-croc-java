@@ -6,10 +6,7 @@ import ru.croc.task18.DAO_interfaces.OrderDAO;
 import ru.croc.task18.entities.Order;
 import ru.croc.task18.entities.Product;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class OrderDAOImplementation implements OrderDAO {
@@ -27,13 +24,14 @@ public class OrderDAOImplementation implements OrderDAO {
     @Override
     public Order createOrder(String userLogin, List<Product> products) throws SQLException {
 
+        int lastOrderId = findMaxOrderId();
         int clientId = findClientIdByLogin(userLogin);
         if (clientId == -1) {
             throw new RuntimeException("Такого пользователя нет");
         }
 
         ProductDAOImplementation productDAO = new ProductDAOImplementation();
-        String query = "INSERT INTO ORDERS (CLIENT_ID, PRODUCT_ID) VALUES (?, ?)";
+        String query = "INSERT INTO ORDERS (CLIENT_ID, PRODUCT_ID, ORDER_ID) VALUES (?, ?, ?)";
         Order order = new Order();
         order.setClientLogin(userLogin);
 
@@ -49,6 +47,7 @@ public class OrderDAOImplementation implements OrderDAO {
             }
             statement.setInt(1, clientId);
             statement.setInt(2, product.getId());
+            statement.setInt(3, lastOrderId + 1);
             statement.execute();
             order.products.add(product);
         }
@@ -66,5 +65,18 @@ public class OrderDAOImplementation implements OrderDAO {
             }
         }
         return -1;
+    }
+
+    private int findMaxOrderId() throws SQLException {
+        int id = 0;
+        String query = "SELECT MAX(ORDER_ID) FROM ORDERS";
+        Statement statement = connection.createStatement();
+        statement.execute(query);
+        try(ResultSet result = statement.getResultSet()) {
+            while (result.next()) {
+                id = result.getInt("MAX(ORDER_ID)");
+            }
+        }
+        return id;
     }
 }

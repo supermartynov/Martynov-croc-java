@@ -21,7 +21,7 @@ public class CSVReader {
 
     public static final String insertIntoProductsQuery = "INSERT INTO PRODUCTS (name, price, article) values (?, ?, ?)";
 
-    public static final String insertIntoOrderQuery = "INSERT INTO ORDERS (client_id, product_id) values (?, ?)";
+    public static final String insertIntoOrderQuery = "INSERT INTO ORDERS (client_id, product_id, order_id) values (?, ?, ?)";
 
     public CSVReader(String csvPath, Connection connection) {
         csv = csvPath;
@@ -33,6 +33,7 @@ public class CSVReader {
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         while (bufferedReader.ready()) {
             String[] strings = bufferedReader.readLine().split(",");
+            int order_id = Integer.parseInt(strings[0]);
             String login = strings[1];
             String article = strings[2];
             String name = strings[3];
@@ -40,7 +41,7 @@ public class CSVReader {
 
             int product_id = insertIntoProducts(article, name, Integer.parseInt(price.trim()));
             int client_id = insertIntoClients(login);
-            insertIntoOrders(client_id, product_id);
+            insertIntoOrders(client_id, product_id, order_id);
         }
     }
 
@@ -72,10 +73,11 @@ public class CSVReader {
         }
     }
 
-    private void insertIntoOrders(int client_id, int product_id) throws SQLException {
+    private void insertIntoOrders(int client_id, int product_id, int order_id) throws SQLException {
         PreparedStatement statementForInsertProduct = connection.prepareStatement(insertIntoOrderQuery);
         statementForInsertProduct.setInt(1, client_id);
         statementForInsertProduct.setInt(2, product_id);
+        statementForInsertProduct.setInt(3, order_id);
         statementForInsertProduct.execute();
 
     }

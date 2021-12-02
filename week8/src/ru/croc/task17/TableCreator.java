@@ -20,6 +20,7 @@ public class TableCreator {
             "id INT IDENTITY PRIMARY KEY," +
             "client_id int NOT NULL," +
             "product_id int NOT NULL," +
+            "order_id int," +
             "foreign key(client_id) references clients(id)," +
             "foreign key(product_id) references products(id))";
 
