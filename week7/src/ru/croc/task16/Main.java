@@ -8,7 +8,7 @@ public class Main {
     static HashSet<Respondent> respondents = new HashSet<>();
 
     public static void main(String[] args) {
-        args = new String[] {"18", "25", "35", "55", "60", "80", "100"};
+        //args = new String[] {"18", "25", "35", "55", "60", "80", "100"};
         int[] ageBounds = new int[args.length];
         for (int i = 0; i < args.length; i++) {
             ageBounds[i] = Integer.parseInt(args[i].trim());
