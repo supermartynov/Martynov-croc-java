@@ -36,7 +36,7 @@ public class Main {
 
     private static void createGroupsList(int[] bounds) {
         groups.add(new Group(0, bounds[0]));
-        for (int i = 1; i < bounds.length - 1; i++) {
+        for (int i = 1; i < bounds.length; i++) {
             int lastBound = groups.get(i - 1).getTo();
             groups.add(new Group(lastBound + 1, bounds[i]));
         }
@@ -47,8 +47,9 @@ public class Main {
         for(Respondent respondent : respondents) {
             int age = respondent.getAge();
             for (Group group : groups) {
-                if (age < group.getTo() && age > group.getFrom()) {
+                if (age <= group.getTo() && age >= group.getFrom()) {
                     group.getRespondentList().add(respondent);
+                    break;
                 }
             }
         }
