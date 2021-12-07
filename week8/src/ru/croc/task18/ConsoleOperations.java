@@ -40,4 +40,9 @@ public class ConsoleOperations {
         return new Product(productCode, name, price);
     }
 
+    public void closeConnection() throws SQLException {
+        orderDAOImplementation.connection.close();
+        productDAOImplementation.connection.close();
+    }
+
 }

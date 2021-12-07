@@ -9,9 +9,9 @@ import java.sql.*;
 
 public class ProductDAOImplementation implements ProductDAO {
 
-    public static Connection connection;
+    public  Connection connection;
 
-    static {
+     {
         try {
             connection = DBConnection.createConnection();
             TableCreator.createTables(connection);
@@ -23,20 +23,22 @@ public class ProductDAOImplementation implements ProductDAO {
     @Override
     public Product findProduct(String productCode) throws SQLException {
         String query = "SELECT * FROM PRODUCTS WHERE ARTICLE = ?";
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, productCode);
-        Product product = null;
+        try(PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, productCode);
+            Product product = null;
 
-        try (ResultSet result = statement.executeQuery()) {
-            while (result.next()) {
-                int id = result.getInt("id");
-                String name = result.getString("name");
-                String code = result.getString("article");
-                int price = result.getInt("price");
-                product = new Product(id, code, name, price);
+            try (ResultSet result = statement.executeQuery()) {
+                while (result.next()) {
+                    int id = result.getInt("id");
+                    String name = result.getString("name");
+                    String code = result.getString("article");
+                    int price = result.getInt("price");
+                    product = new Product(id, code, name, price);
+                }
             }
+            return product;
         }
-        return product;
+
     }
 
     @Override
@@ -47,12 +49,13 @@ public class ProductDAOImplementation implements ProductDAO {
         }
 
         String query = "INSERT INTO PRODUCTS (name, article, price) VALUES (?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, product.getName());
-        statement.setString(2, product.getProductCode());
-        statement.setInt(3, product.getPrice());
-        statement.execute();
-        return findProduct(product.getProductCode());
+        try(PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, product.getName());
+            statement.setString(2, product.getProductCode());
+            statement.setInt(3, product.getPrice());
+            statement.execute();
+            return findProduct(product.getProductCode());
+        }
     }
 
     @Override
@@ -64,27 +67,29 @@ public class ProductDAOImplementation implements ProductDAO {
 
         String query = "UPDATE PRODUCTS SET NAME = ?, ARTICLE = ?, PRICE = ? " +
                 "WHERE ID = ?";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, product.getName());
-        preparedStatement.setString(2, product.getProductCode());
-        preparedStatement.setInt(3, product.getPrice());
-        preparedStatement.setInt(4, productToChange.getId());
-        preparedStatement.execute();
 
-        return findProduct(product.getProductCode());
+        try(PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, product.getName());
+            preparedStatement.setString(2, product.getProductCode());
+            preparedStatement.setInt(3, product.getPrice());
+            preparedStatement.setInt(4, productToChange.getId());
+            preparedStatement.execute();
+
+            return findProduct(product.getProductCode());
+        }
     }
 
     @Override
     public void deleteProduct(String productCode) throws SQLException {
         String deleteProductQuery = "DELETE FROM PRODUCTS WHERE ARTICLE = ?";
         String deleterOrdersQuery = "DELETE FROM ORDERS WHERE PRODUCT_ID = ?";
-        PreparedStatement statementProduct = connection.prepareStatement(deleteProductQuery);
-        PreparedStatement statementOrder = connection.prepareStatement(deleterOrdersQuery);
-
-        statementOrder.setInt(1, findProduct(productCode).getId());
-        statementOrder.execute();
-        statementProduct.setString(1, productCode);
-        statementProduct.execute();
-
+        try(PreparedStatement statementProduct = connection.prepareStatement(deleteProductQuery);
+        PreparedStatement statementOrder = connection.prepareStatement(deleterOrdersQuery))
+        {
+            statementOrder.setInt(1, findProduct(productCode).getId());
+            statementOrder.execute();
+            statementProduct.setString(1, productCode);
+            statementProduct.execute();
+        }
     }
 }

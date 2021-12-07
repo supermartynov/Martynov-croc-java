@@ -10,9 +10,9 @@ import java.sql.*;
 import java.util.List;
 
 public class OrderDAOImplementation implements OrderDAO {
-    public static Connection connection;
+    public  Connection connection;
 
-    static {
+     {
         try {
             connection = DBConnection.createConnection();
             TableCreator.createTables(connection);
@@ -49,6 +49,7 @@ public class OrderDAOImplementation implements OrderDAO {
             statement.setInt(2, product.getId());
             statement.setInt(3, lastOrderId + 1);
             statement.execute();
+            statement.close();
             order.products.add(product);
         }
         return order;
@@ -64,6 +65,7 @@ public class OrderDAOImplementation implements OrderDAO {
                return result.getInt("id");
             }
         }
+        statement.close();
         return -1;
     }
 
@@ -77,6 +79,7 @@ public class OrderDAOImplementation implements OrderDAO {
                 id = result.getInt("MAX(ORDER_ID)");
             }
         }
+        statement.close();
         return id;
     }
 }
