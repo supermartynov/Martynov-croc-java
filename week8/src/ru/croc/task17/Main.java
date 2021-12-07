@@ -19,8 +19,8 @@ public class Main {
     }
 
     public static void main(String[] args) throws SQLException, IOException {
-        //CSVReader csvReader = new CSVReader("./week8/src/ru/croc/task17/info.csv", connection);
-        CSVReader csvReader = new CSVReader(args[0], connection);
+        CSVReader csvReader = new CSVReader("./week8/src/ru/croc/task17/info.csv", connection);
+        //CSVReader csvReader = new CSVReader(args[0], connection);
         csvReader.fillTablesFromCSV();
         connection.close();
     }

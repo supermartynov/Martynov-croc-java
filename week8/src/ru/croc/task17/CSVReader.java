@@ -54,6 +54,7 @@ public class CSVReader {
             statementForInsertProduct.setInt(2, price);
             statementForInsertProduct.setString(3, article);
             statementForInsertProduct.execute();
+            statementForInsertProduct.close();
             return selectFromTableByOneArgument(article, selectProductQuery);
         } else {
             return id;
@@ -68,6 +69,7 @@ public class CSVReader {
             PreparedStatement statementForInsertProduct = connection.prepareStatement(insertIntoClientsQuery);
             statementForInsertProduct.setString(1, login);
             statementForInsertProduct.execute();
+            statementForInsertProduct.close();
             return selectFromTableByOneArgument(login, selectClientsQuery);
         } else {
             return id;
@@ -80,6 +82,7 @@ public class CSVReader {
         statementForInsertProduct.setInt(2, product_id);
         statementForInsertProduct.setInt(3, order_id);
         statementForInsertProduct.execute();
+        statementForInsertProduct.close();
     }
 
     private int selectFromTableByOneArgument(String article, String query) throws SQLException {
@@ -91,6 +94,7 @@ public class CSVReader {
                 id = result.getInt("id");
             }
         }
+        statementForSelectQuery.close();
         return id;
     }
 }

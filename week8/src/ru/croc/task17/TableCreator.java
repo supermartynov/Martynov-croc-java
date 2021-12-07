@@ -25,7 +25,6 @@ public class TableCreator {
             "foreign key(product_id) references products(id))";
 
     public static void createTables (Connection connection) throws SQLException {
-        connection = DBConnection.createConnection();
         executeStatement(createUserTableQuery, connection);
         executeStatement(createProductTableQuery, connection);
         executeStatement(createOrderTableQuery, connection);
@@ -34,6 +33,7 @@ public class TableCreator {
     public static void executeStatement(String query, Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute(query);
+        statement.close();
     }
 
 }
