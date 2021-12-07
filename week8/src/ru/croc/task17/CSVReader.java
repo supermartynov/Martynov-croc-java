@@ -58,6 +58,7 @@ public class CSVReader {
         } else {
             return id;
         }
+
     }
 
     private int insertIntoClients(String login) throws SQLException {
@@ -79,7 +80,6 @@ public class CSVReader {
         statementForInsertProduct.setInt(2, product_id);
         statementForInsertProduct.setInt(3, order_id);
         statementForInsertProduct.execute();
-
     }
 
     private int selectFromTableByOneArgument(String article, String query) throws SQLException {
