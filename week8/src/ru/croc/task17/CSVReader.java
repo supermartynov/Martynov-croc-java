@@ -49,13 +49,13 @@ public class CSVReader {
         int id = selectFromTableByOneArgument(article, selectProductQuery);
 
         if (id == -1) {
-            PreparedStatement statementForInsertProduct = connection.prepareStatement(insertIntoProductsQuery);
-            statementForInsertProduct.setString(1, name);
-            statementForInsertProduct.setInt(2, price);
-            statementForInsertProduct.setString(3, article);
-            statementForInsertProduct.execute();
-            statementForInsertProduct.close();
-            return selectFromTableByOneArgument(article, selectProductQuery);
+            try(PreparedStatement statementForInsertProduct = connection.prepareStatement(insertIntoProductsQuery)) {
+                statementForInsertProduct.setString(1, name);
+                statementForInsertProduct.setInt(2, price);
+                statementForInsertProduct.setString(3, article);
+                statementForInsertProduct.execute();
+                return selectFromTableByOneArgument(article, selectProductQuery);
+            }
         } else {
             return id;
         }

@@ -7,7 +7,7 @@ import ru.croc.task18.entities.Product;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ConsoleOperations {
+public class ConsoleOperations implements AutoCloseable{
     private ProductDAOImplementation productDAOImplementation = new ProductDAOImplementation();
 
     private OrderDAOImplementation orderDAOImplementation = new OrderDAOImplementation();
@@ -40,9 +40,9 @@ public class ConsoleOperations {
         return new Product(productCode, name, price);
     }
 
-    public void closeConnection() throws SQLException {
+    @Override
+    public void close() throws Exception {
         orderDAOImplementation.connection.close();
         productDAOImplementation.connection.close();
     }
-
 }

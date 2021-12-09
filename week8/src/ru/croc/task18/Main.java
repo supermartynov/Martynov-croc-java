@@ -15,30 +15,30 @@ import ru.croc.task18.entities.Product;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException, IOException {
+    public static void main(String[] args) throws Exception {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         String line = "";
-        ConsoleOperations consoleOperations = new ConsoleOperations();
-        System.out.println("Артикулы исходных данных из task17 заполнены на русском!!!");
-        while (!(line = bufferedReader.readLine()).equals("КОНЕЦ")) {
-            String[] strings = line.trim().split(" ");
-            switch (strings[0].toUpperCase(Locale.ROOT)) {
-                case ("ТОВАР"):
-                    consoleOperations.createProduct(strings);
-                    break;
-                case ("ИЗМЕНИТЬ"):
-                    consoleOperations.changeProduct(strings);
-                    break;
-                case ("УДАЛИТЬ"):
-                    consoleOperations.deleteProduct(strings);
-                    break;
-                case ("ЗАКАЗ"):
-                    consoleOperations.order(strings);
-                    break;
-                default:
-                    break;
+        try(ConsoleOperations consoleOperations = new ConsoleOperations()) {
+            System.out.println("Артикулы исходных данных из task17 заполнены на русском!!!");
+            while (!(line = bufferedReader.readLine()).equals("КОНЕЦ")) {
+                String[] strings = line.trim().split(" ");
+                switch (strings[0].toUpperCase(Locale.ROOT)) {
+                    case ("ТОВАР"):
+                        consoleOperations.createProduct(strings);
+                        break;
+                    case ("ИЗМЕНИТЬ"):
+                        consoleOperations.changeProduct(strings);
+                        break;
+                    case ("УДАЛИТЬ"):
+                        consoleOperations.deleteProduct(strings);
+                        break;
+                    case ("ЗАКАЗ"):
+                        consoleOperations.order(strings);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
-        consoleOperations.closeConnection();
     }
 }
